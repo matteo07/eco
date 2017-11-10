@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pier.dirittoprivato.db.DbAdapter;
 
@@ -13,21 +14,43 @@ import java.util.ArrayList;
 
 public class TestActivity extends AppCompatActivity {
 
-    private ArrayList<Domanda> domande;
-    private ArrayList<Domanda> sbagliate = new ArrayList<Domanda>();
+    private ArrayList<Domanda> domande = new ArrayList<>();
+    public ArrayList<String> sbagliate = new ArrayList<>();
     private int index = 0;
+
+    DbAdapter dbAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        DbAdapter dbAdapter = DbAdapter.getInstance(this);
-        dbAdapter.open();
-        domande = dbAdapter.selectDomandeFromCap(2);
-        setLayout(domande.get(index));
+        int quizType = getIntent().getIntExtra("quizType",0);
 
+        dbAdapter = DbAdapter.getInstance(this);
+        dbAdapter.open();
+
+        if(quizType == 0){
+            for(int i =1; i < 11; i++) {
+                domande.addAll(dbAdapter.selectDomandeFromCap(i, "3"));
+                setLayout(domande.get(index));
+            }
+        }else{
+            for(int i =1; i < 11; i++) {
+                domande.addAll(dbAdapter.selectDomandeFromCap(i, "1"));
+                setLayout(domande.get(index));
+            }
+        }
         setButtonsListener();
+    }
+
+    // metodo per gestire il tasto back della softbar
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this,"Quiz non completato",Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     public void setLayout(Domanda d){
@@ -47,19 +70,34 @@ public class TestActivity extends AppCompatActivity {
         rx4.setText("D. " + d.getRx_4());
     }
 
-    public void endGame(int i){
-        if(!domande.get(index).isCorrect(i)){
-            sbagliate.add(domande.get(index));
+    @Override
+    public String toString() {
+        return sbagliate.toString();
+    }
+
+    public void checkAnswer(int i){
+        Domanda domanda = domande.get(index);
+        if(isWrongAnswer(i)){
+            sbagliate.add(domanda.getDomanda());
+            dbAdapter.incrementError(domanda.getCapitolo());
         }
-
-        if(++index < domande.size()) {
-            setLayout(domande.get(index));
+        if(isNotLastQuestion()) {
+            setLayout(domanda);
         } else {
-            Intent intent = new Intent();
-
-            this.setResult(sbagliate.size(), intent);
+            Intent intent = new Intent(this,ResultsActivity.class);
+            intent.putStringArrayListExtra("SBAGLIATE", sbagliate);
+            //this.setResult(sbagliate.size(), intent);
+            startActivity(intent);
             this.finish();
         }
+    }
+
+    private boolean isNotLastQuestion() {
+        return ++index < domande.size();
+    }
+
+    private boolean isWrongAnswer(int i) {
+        return !domande.get(index).isCorrect(i);
     }
 
     public void setButtonsListener() {
@@ -67,7 +105,7 @@ public class TestActivity extends AppCompatActivity {
         btA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                endGame(1);
+                checkAnswer(1);
             }
         });
 
@@ -75,7 +113,7 @@ public class TestActivity extends AppCompatActivity {
         btB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                endGame(2);
+                checkAnswer(2);
             }
         });
 
@@ -83,7 +121,7 @@ public class TestActivity extends AppCompatActivity {
         btC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                endGame(3);
+                checkAnswer(3);
             }
         });
 
@@ -91,7 +129,7 @@ public class TestActivity extends AppCompatActivity {
         btD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                endGame(4);
+                checkAnswer(4);
             }
         });
     }

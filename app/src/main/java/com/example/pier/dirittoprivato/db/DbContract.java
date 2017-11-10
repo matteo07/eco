@@ -9,7 +9,7 @@ import android.provider.BaseColumns;
 public class DbContract {
 
     static final String DATABASE_NAME = "domande.db";
-    static final int DATABASE_VERSION = 2;
+    static final int DATABASE_VERSION = 4;
 
     private DbContract() {}
 
@@ -22,5 +22,11 @@ public class DbContract {
         public static final String COLUMN_NAME_RX4 = "rx4";
         public static final String COLUMN_NAME_CORRETTA = "corretta";
         public static final String COLUMN_NAME_CAPITOLO = "capitolo";
+    }
+
+    public static abstract class ErroriItem implements BaseColumns {
+        public static final String TABLE_NAME = "punteggio";
+        public static final String COLUMN_NAME_CAPITOLO = "capitolo";
+        public static final String COLUMN_NAME_ERRORI = "errori";
     }
 }

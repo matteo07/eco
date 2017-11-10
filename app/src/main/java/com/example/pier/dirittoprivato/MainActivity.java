@@ -3,13 +3,11 @@ package com.example.pier.dirittoprivato;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.pier.dirittoprivato.db.DataImport;
 import com.example.pier.dirittoprivato.db.DbAdapter;
@@ -17,8 +15,8 @@ import com.example.pier.dirittoprivato.db.DbAdapter;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
-
     private final int ActivityRequestCode = 1;
+
     DbAdapter dbAdapter;
 
     @Override
@@ -33,35 +31,52 @@ public class MainActivity extends AppCompatActivity {
         DataImport leggi = new DataImport();
         try {
             leggi.importCSV(dbAdapter, this);
-            Log.d("IMPRORT CSV", "ENDED");
+            Log.d("IMPORT CSV", "ENDED");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
-        Button startButton = (Button) findViewById(R.id.startButton);
-        startButton.setOnClickListener(new View.OnClickListener() {
+        Button startButton30 = (Button) findViewById(R.id.startButton30);
+        startButton30.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startTest();
+                startTest(0);
             }
         });
+
+        Button startButton20 = (Button)findViewById(R.id.startButton20);
+        startButton20.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startTest(1);
+            }
+        });
+
     }
 
-    public void startTest() { // open TestActivity
+    public void startTest(int i){
         Intent intent = new Intent(this,TestActivity.class);
+        intent.putExtra("quizType",i);
         startActivityForResult(intent, ActivityRequestCode);
     }
 
-    @Override
+   /* @Override --> spostati in activity_results
     protected void onActivityResult(int requestCode, int result, Intent intent) {
         TextView res = (TextView) findViewById(R.id.resultText);
-        res.setText("Sbagliato " + result + " domande");
+        showDomandeSbagliate(intent.getStringArrayListExtra("SBAGLIATE"));
+        res.setText("Risposta errata alle seguenti domande");
+        //modifiche pier
     }
 
-
+    public void showDomandeSbagliate(ArrayList<String> sbagliate){  //per listView
+        final ListView listView = (ListView)findViewById(R.id.listView);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, sbagliate);
+        listView.setAdapter(adapter);
+    }
+*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

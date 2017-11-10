@@ -50,6 +50,10 @@ public class Domanda {
         return rx_4;
     }
 
+    public int getCapitolo() {
+        return capitolo;
+    }
+
     public int getCorrect() {
         return correct;
     }

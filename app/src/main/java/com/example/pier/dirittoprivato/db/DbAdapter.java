@@ -51,11 +51,10 @@ public class DbAdapter {
         db.insert(DbContract.DomandaItem.TABLE_NAME,null, domanda.asContentValues());
     }
 
-    public ArrayList<Domanda> selectDomandeFromCap(int cap){
+    public ArrayList<Domanda> selectDomandeFromCap(int cap, String limit){
         ArrayList<Domanda> result = new ArrayList<Domanda>();
 
         String whereClause = DbContract.DomandaItem.COLUMN_NAME_CAPITOLO + " = " + cap;
-        String limit = "5";
         String order = "RANDOM()";
         Cursor cursor = db.query(DbContract.DomandaItem.TABLE_NAME, null, whereClause, null, null, null, order, limit );
         cursor.moveToFirst();
@@ -66,6 +65,16 @@ public class DbAdapter {
         }
         return result;
     }
+
+    public void incrementError(int capitolo){
+        String updateQuery = "update " + DbContract.ErroriItem.TABLE_NAME
+                + " set " + DbContract.ErroriItem.COLUMN_NAME_ERRORI + " = "
+                + DbContract.ErroriItem.COLUMN_NAME_ERRORI + " + 1 where "
+                + DbContract.ErroriItem.COLUMN_NAME_CAPITOLO + " = " + capitolo;
+        Log.v("Database","Aggiornato numero errori in capitolo " + capitolo);
+        db.execSQL(updateQuery);
+    }
+
 
     public void clearDomande() {
         Log.v("Database","Rimosse domande");

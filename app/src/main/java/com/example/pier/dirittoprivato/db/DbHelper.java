@@ -27,7 +27,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     //SQL-statement per la creazione della tabella del database.
-    public static final String SQL_CREATE_TABLE = "create table " //
+    public static final String SQL_CREATE_TABLE_DOMANDA = "create table " //
             + DbContract.DomandaItem.TABLE_NAME + " (" //
             + DbContract.DomandaItem.COLUMN_NAME_DOMANDA + " text not null, " //
             + DbContract.DomandaItem.COLUMN_NAME_RX1 + " text not null, " //
@@ -37,12 +37,36 @@ public class DbHelper extends SQLiteOpenHelper {
             + DbContract.DomandaItem.COLUMN_NAME_CORRETTA + " int not null, " //
             + DbContract.DomandaItem.COLUMN_NAME_CAPITOLO + " int not null " //
             + ");";
+    public static final String SQL_CREATE_TABLE_ERRORI = "create table "
+            + DbContract.ErroriItem.TABLE_NAME + " ("
+            + DbContract.ErroriItem.COLUMN_NAME_ERRORI + " int not null, " //
+            + DbContract.ErroriItem.COLUMN_NAME_CAPITOLO + " int not null " //
+            + ");";
 
+    public void initialize(SQLiteDatabase db){
+        db.execSQL("drop table " + DbContract.DomandaItem.TABLE_NAME);
+        db.execSQL("drop table " + DbContract.ErroriItem.TABLE_NAME);
+        db.execSQL(SQL_CREATE_TABLE_DOMANDA);
+        db.execSQL(SQL_CREATE_TABLE_ERRORI);
+        initializeErrors(db);
+    }
+
+    private void initializeErrors(SQLiteDatabase db) {
+        for(int i = 1; i <= 10; i++){
+            insertCap(i , db);
+        }
+    }
+
+    private void insertCap(int i, SQLiteDatabase db) {
+        String insertQuery = "insert into " + DbContract.ErroriItem.TABLE_NAME
+                + " values ( " + i + ", 0 )";
+        db.execSQL(insertQuery);
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-            db.execSQL(SQL_CREATE_TABLE);
+            initialize(db);
             Log.v("Database","Created correctly");
         } catch (SQLException e) {
             Log.e(LOG_TAG, e.getMessage());
@@ -52,8 +76,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("drop table " + DbContract.DomandaItem.TABLE_NAME);
-        db.execSQL(SQL_CREATE_TABLE);
-        Log.v("Database","Upgraded correctly");
+        initialize(db);
+        Log.d("Database","Upgraded correctly");
     }
 }

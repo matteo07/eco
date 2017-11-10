@@ -14,20 +14,25 @@
     tools:showIn="@layout/activity_main">
 
     <Button
-        android:text="Inizia nuovo quiz"
+        android:text="Quiz 10 domande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/startButton20"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:background="@color/cyan500"
+        android:layout_marginTop="128dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/startButton"
-        style="@style/Widget.AppCompat.Button.Borderless" />
+        android:layout_centerHorizontal="true" />
 
-    <TextView
+    <Button
+        android:text="Quiz 30 domande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/startButton"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="30dp"
-        android:id="@+id/resultText" />
+        android:id="@+id/startButton30"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:background="@color/red_trasparent"
+        android:layout_marginTop="149dp"
+        android:layout_below="@+id/startButton20"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

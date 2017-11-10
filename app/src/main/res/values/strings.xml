@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">DirittoPrivato</string>
+    <string name="app_name">Diritto Pubblico</string>
     <string name="action_settings">Settings</string>
+    <string name="risultato">Domande a cui è stata data una risposta sbagliata</string>
+
+    <string name="title_activity_results">Risultato Quiz</string>
+
 </resources>

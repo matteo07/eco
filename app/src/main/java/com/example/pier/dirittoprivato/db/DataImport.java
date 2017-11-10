@@ -25,10 +25,11 @@ public class DataImport {
         while((line = reader.readLine()) != null){
 
             String[] splitted = line.split("\\|");
+
             Log.d("Insert DB" , splitted[0] + "  !!  " + index);
 
             Domanda domanda = new Domanda(splitted[0], splitted[1], splitted[2], splitted[3],
-                    splitted[4], Integer.parseInt(splitted[5]), Integer.parseInt(splitted[5]));
+                    splitted[4], Integer.parseInt(splitted[5]), Integer.parseInt(splitted[6]));
 
             dbAdapter.insertDomanda(domanda);
         }

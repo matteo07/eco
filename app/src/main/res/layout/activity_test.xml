@@ -13,22 +13,50 @@
 
     <TextView
         android:text="domanda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/textview_width"
+        android:layout_height="@dimen/textview_height"
+        android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="23dp"
         android:id="@+id/Domanda" />
 
     <TextView
+        android:text="B) R2"
+        android:layout_width="@dimen/textview_width"
+        android:layout_height="@dimen/textview_height"
+        android:id="@+id/rx2"
+        android:layout_below="@+id/rx1"
+        android:layout_alignStart="@+id/rx1"
+        android:layout_marginTop="44dp" />
+
+    <TextView
+        android:text="C) R3"
+        android:layout_width="@dimen/textview_width"
+        android:layout_height="35dp"
+        android:id="@+id/rx3"
+        android:layout_below="@+id/rx2"
+        android:layout_alignStart="@+id/rx2"
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:text="D) R4"
+        android:layout_width="@dimen/textview_width"
+        android:layout_height="@dimen/textview_height"
+        android:id="@+id/rx4"
+        android:layout_marginTop="38dp"
+        android:layout_below="@+id/rx3"
+        android:layout_alignEnd="@+id/rx2" />
+
+    <TextView
         android:text="A) R1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="34dp"
+        android:layout_width="@dimen/textview_width"
+        android:layout_height="@dimen/textview_height"
+        android:layout_marginTop="33dp"
         android:id="@+id/rx1"
         android:layout_below="@+id/Domanda"
-        android:layout_alignParentStart="true" />
+        android:layout_alignStart="@+id/Domanda"
+        />
 
     <Button
         android:text="D"
@@ -37,60 +65,37 @@
         android:id="@+id/btD"
         android:layout_alignBaseline="@+id/btC"
         android:layout_alignBottom="@+id/btC"
-        android:layout_alignStart="@+id/btB" />
+        android:layout_toEndOf="@+id/btC"
+        android:backgroundTint="@color/teal100"/>
+
+    <Button
+        android:text="B"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btB"
+        android:layout_marginEnd="58dp"
+        android:layout_alignBaseline="@+id/btA"
+        android:layout_alignBottom="@+id/btA"
+        android:layout_alignEnd="@+id/rx4"
+        android:backgroundTint="@color/teal100"/>
 
     <Button
         android:text="C"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btC"
+        android:layout_marginBottom="35dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/btA"
-        android:layout_marginBottom="35dp" />
-
-    <Button
-        android:text="B"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:id="@+id/btB"
-        android:layout_above="@+id/btC"
-        android:layout_toEndOf="@+id/Domanda" />
+        android:layout_toStartOf="@+id/btB"
+        android:backgroundTint="@color/teal100"
+        />
 
     <Button
         android:text="A"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btA"
-        android:layout_alignBaseline="@+id/btB"
-        android:layout_alignBottom="@+id/btB"
-        android:layout_alignStart="@+id/rx4"
-        android:layout_marginStart="12dp" />
-
-    <TextView
-        android:text="B) R2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rx2"
-        android:layout_below="@+id/rx1"
-        android:layout_alignStart="@+id/rx1"
-        android:layout_marginTop="44dp" />
-
-    <TextView
-        android:text="C) R3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rx3"
-        android:layout_below="@+id/rx2"
-        android:layout_alignStart="@+id/rx2"
-        android:layout_marginTop="40dp" />
-
-    <TextView
-        android:text="D) R4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rx4"
-        android:layout_marginTop="38dp"
-        android:layout_below="@+id/rx3"
-        android:layout_alignEnd="@+id/rx2" />
+        android:layout_above="@+id/btC"
+        android:layout_alignStart="@+id/btC"
+        android:backgroundTint="@color/teal100"/>
 </RelativeLayout>
