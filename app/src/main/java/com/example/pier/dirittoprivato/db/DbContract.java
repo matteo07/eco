@@ -9,7 +9,7 @@ import android.provider.BaseColumns;
 public class DbContract {
 
     static final String DATABASE_NAME = "domande.db";
-    static final int DATABASE_VERSION = 4;
+    static final int DATABASE_VERSION = 6;
 
     private DbContract() {}
 

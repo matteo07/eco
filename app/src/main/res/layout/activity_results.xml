@@ -20,26 +20,27 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:id="@+id/textView"
-        android:layout_below="@+id/restartButton"
-        android:layout_alignParentStart="true"
+
         android:gravity="center"
-        android:layout_weight="0.40" />
+        android:layout_weight="0.40"
+        android:textAppearance="@style/TextViewStyle"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="343dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
+
         android:id="@+id/listView"
         android:layout_marginTop="20dp"/>
 
     <Button
-        android:text="SCEGLI QUIZ"
+        android:text="@string/scegli_quiz"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/restartButton"
         android:layout_weight="0.15"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:textAppearance="@style/TextViewStyle"
+        />
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.pier.dirittoprivato.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -66,17 +67,33 @@ public class DbAdapter {
         return result;
     }
 
-    public void incrementError(int capitolo){
-        String updateQuery = "update " + DbContract.ErroriItem.TABLE_NAME
-                + " set " + DbContract.ErroriItem.COLUMN_NAME_ERRORI + " = "
-                + DbContract.ErroriItem.COLUMN_NAME_ERRORI + " + 1 where "
-                + DbContract.ErroriItem.COLUMN_NAME_CAPITOLO + " = " + capitolo;
-        Log.v("Database","Aggiornato numero errori in capitolo " + capitolo);
-        db.execSQL(updateQuery);
+    public ArrayList<String> getErroriPerCapitolo () {
+        ArrayList<String> result = new ArrayList<String>();
+
+        String order = DbContract.ErroriItem.COLUMN_NAME_ERRORI + " desc";
+
+        Cursor cursor = db.query(DbContract.ErroriItem.TABLE_NAME, null, null, null, null, null, order, null );
+        cursor.moveToFirst();
+
+        while(!cursor.isAfterLast()){
+            result.add("" + cursor.getInt(0));
+            Log.d("ERRORI 1","" + cursor.getInt(0));
+            Log.d("ERRORI 2","" + cursor.getInt(1));
+            cursor.moveToNext();
+        }
+        return result;
+
     }
 
+    public void incrementError(int capitolo){
+        Log.d("Database","Aggiornato numero errori in capitolo " + capitolo);
+        ContentValues cv = new ContentValues();
+        cv.put(DbContract.ErroriItem.COLUMN_NAME_CAPITOLO, capitolo);
+        cv.put(DbContract.ErroriItem.COLUMN_NAME_ERRORI,2);
+        db.update(DbContract.ErroriItem.TABLE_NAME,cv,DbContract.ErroriItem.COLUMN_NAME_CAPITOLO + "=" + capitolo, null);
+    }
 
-    public void clearDomande() {
+   public void clearDomande() {
         Log.v("Database","Rimosse domande");
         db.execSQL("delete from " + DbContract.DomandaItem.TABLE_NAME);
     }

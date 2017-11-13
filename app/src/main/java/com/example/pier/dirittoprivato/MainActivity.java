@@ -1,6 +1,8 @@
 package com.example.pier.dirittoprivato;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.pier.dirittoprivato.db.DataImport;
 import com.example.pier.dirittoprivato.db.DbAdapter;
@@ -28,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         dbAdapter.open();
         dbAdapter.clearDomande();
 
+
+
+
         DataImport leggi = new DataImport();
         try {
             leggi.importCSV(dbAdapter, this);
@@ -35,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        dbAdapter.getErroriPerCapitolo();
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
@@ -54,7 +62,17 @@ public class MainActivity extends AppCompatActivity {
                 startTest(1);
             }
         });
+    }
 
+    @Override
+    protected void onStart(){
+        super.onStart();
+        TextView quizSvolti = (TextView)findViewById(R.id.quiz_svolti);
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.storico), Context.MODE_PRIVATE);
+        int numQuiz = sharedPref.getInt(getString(R.string.quiz_svolti),0);
+        quizSvolti.setText(getString(R.string.quiz_svolti_textView) + " " + numQuiz);
+        //PER PULIRE LE PREFERENCES
+        //sharedPref.edit().clear().commit();
     }
 
     public void startTest(int i){
@@ -62,21 +80,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("quizType",i);
         startActivityForResult(intent, ActivityRequestCode);
     }
-
-   /* @Override --> spostati in activity_results
-    protected void onActivityResult(int requestCode, int result, Intent intent) {
-        TextView res = (TextView) findViewById(R.id.resultText);
-        showDomandeSbagliate(intent.getStringArrayListExtra("SBAGLIATE"));
-        res.setText("Risposta errata alle seguenti domande");
-        //modifiche pier
-    }
-
-    public void showDomandeSbagliate(ArrayList<String> sbagliate){  //per listView
-        final ListView listView = (ListView)findViewById(R.id.listView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, sbagliate);
-        listView.setAdapter(adapter);
-    }
-*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -98,4 +101,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
