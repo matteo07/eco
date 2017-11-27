@@ -1,16 +1,20 @@
 package com.example.pier.dirittoprivato;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pier.dirittoprivato.db.DbAdapter;
 
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -18,6 +22,10 @@ public class TestActivity extends AppCompatActivity {
     public ArrayList<String> sbagliate = new ArrayList<>();
     private int index = 0;
 
+    private Button btA;
+    private Button btB;
+    private Button btC;
+    private Button btD;
     DbAdapter dbAdapter;
 
 
@@ -42,15 +50,46 @@ public class TestActivity extends AppCompatActivity {
                 setLayout(domande.get(index));
             }
         }
+
+        btA = (Button) findViewById(R.id.btA);
+        btB = (Button) findViewById(R.id.btB);
+        btC = (Button) findViewById(R.id.btC);
+        btD = (Button) findViewById(R.id.btD);
+
         setButtonsListener();
+
     }
 
     // metodo per gestire il tasto back della softbar
     @Override
     public void onBackPressed() {
-        Toast.makeText(this,"Quiz non completato",Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+
+
+                AlertDialog.Builder a_builder = new AlertDialog.Builder(TestActivity.this);
+                a_builder.setMessage("Sicuro di voler terminare il Quiz ?").setCancelable(false)
+                        .setPositiveButton("Termina", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("Prosegui", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = a_builder.create();
+                alert.setTitle("");
+                alert.show();
+
+
+                /*Toast.makeText(this,"Quiz non completato",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);*/
+
+
+
     }
 
     public void setLayout(Domanda d){
@@ -70,38 +109,42 @@ public class TestActivity extends AppCompatActivity {
         rx4.setText("D. " + d.getRx_4());
     }
 
-    @Override
-    public String toString() {
-        return sbagliate.toString();
-    }
-
     public void checkAnswer(int i){
+
+        Log.e(TAG,String.valueOf(index));
+
+
         Domanda domanda = domande.get(index);
         if(isWrongAnswer(i)){
-            sbagliate.add(domanda.getDomanda());
+            sbagliate.add(domanda.getDomanda().concat(" ").concat(domanda.getRispostaData(i)));
+
             dbAdapter.incrementError(domanda.getCapitolo());
         }
         if(isNotLastQuestion()) {
+
+            Log.e(TAG,"carico domanda");
             setLayout(domanda);
         } else {
             Intent intent = new Intent(this,ResultsActivity.class);
             intent.putStringArrayListExtra("SBAGLIATE", sbagliate);
-            //this.setResult(sbagliate.size(), intent);
+            intent.putExtra("NUMERO_ERRORI",sbagliate.size());
             startActivity(intent);
             this.finish();
         }
     }
 
+
     private boolean isNotLastQuestion() {
-        return ++index < domande.size();
+        return ++index + 1 <= domande.size();
     }
 
     private boolean isWrongAnswer(int i) {
         return !domande.get(index).isCorrect(i);
     }
 
+
     public void setButtonsListener() {
-        Button btA = (Button) findViewById(R.id.btA);
+
         btA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,7 +152,7 @@ public class TestActivity extends AppCompatActivity {
             }
         });
 
-        Button btB = (Button) findViewById(R.id.btB);
+
         btB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +160,7 @@ public class TestActivity extends AppCompatActivity {
             }
         });
 
-        Button btC = (Button) findViewById(R.id.btC);
+
         btC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,7 +168,7 @@ public class TestActivity extends AppCompatActivity {
             }
         });
 
-        Button btD = (Button) findViewById(R.id.btD);
+
         btD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

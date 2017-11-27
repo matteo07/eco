@@ -19,8 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:id="@+id/textView"
-
+        android:id="@+id/textView2"
+        android:textColor="@color/cyan500"
+        android:textStyle="italic"
         android:gravity="center"
         android:layout_weight="0.40"
         android:textAppearance="@style/TextViewStyle"/>
@@ -28,19 +29,21 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="343dp"
-
         android:id="@+id/listView"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:listSelector="@android:color/transparent"/>
 
     <Button
         android:text="@string/scegli_quiz"
-        android:layout_width="match_parent"
+        android:textStyle="bold"
+        android:textColor="@color/cyan500"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/restartButton"
         android:layout_weight="0.15"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_marginTop="15dp"
         android:textAppearance="@style/TextViewStyle"
-        />
+        android:layout_gravity="center" />
 
 </LinearLayout>

@@ -2,11 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pier.dirittoprivato">
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
@@ -31,8 +32,9 @@
         <activity
             android:name=".ProfileActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_fullscreen"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:label="@string/profilo"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullscreenTheme" />
     </application>
 
 </manifest>

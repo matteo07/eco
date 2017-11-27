@@ -44,8 +44,8 @@ public class DbHelper extends SQLiteOpenHelper {
             + ");";
 
     public void initialize(SQLiteDatabase db){
-        db.execSQL("drop table " + DbContract.DomandaItem.TABLE_NAME);
-        db.execSQL("drop table " + DbContract.ErroriItem.TABLE_NAME);
+        //db.execSQL("drop table " + DbContract.DomandaItem.TABLE_NAME);
+        //db.execSQL("drop table " + DbContract.ErroriItem.TABLE_NAME);
         db.execSQL(SQL_CREATE_TABLE_DOMANDA);
         db.execSQL(SQL_CREATE_TABLE_ERRORI);
         initializeErrors(db);

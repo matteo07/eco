@@ -10,13 +10,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
 public class ResultsActivity extends AppCompatActivity {
 
     private final String[] CAPITOLI = {"Stato e Costituzione","Lo Stato e le sue forme","Le fonti del diritto","La Costituzione e le leggi Costituzionali","La legge ordinaria statale","Gli atti con valore o forza di legge","La legge ordinaria e statuaria","L’adattamento al diritto interanzionale e le fonti comunitarie","Il Parlamento","Il Governo"};
@@ -26,8 +23,16 @@ public class ResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+
+        TextView textView = (TextView)findViewById(R.id.textView2);
+        int s = getIntent().getIntExtra("NUMERO_ERRORI",0);
+        textView.setText(getResources().getString(R.string.risultato)+ ": " + s);
+
+
         showDomandeSbagliate(getIntent().getStringArrayListExtra("SBAGLIATE"));
+
         incrementDoneQuiz();
+
         Button restarTest = (Button)findViewById(R.id.restartButton);
         restarTest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +43,17 @@ public class ResultsActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    //implementarlo per non richiamare il quiz precedente
+    //senza, riorna a quello prima e decrementa di 1 i quiz svolti!!!!
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+    // Controlla l'effettivo funzionamentoooo!!!!!
+
 
     private void incrementDoneQuiz(){
 

@@ -13,21 +13,10 @@
     tools:context="com.example.pier.dirittoprivato.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <Button
-        android:text="Quiz 10 domande"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/startButton20"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:background="@color/cyan500"
-        android:layout_marginTop="128dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp" />
-
     <TextView
         android:text="@string/quiz_svolti_textView"
+        android:textStyle="italic"
+        android:textColor="@color/cyan500"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/quiz_svolti"
@@ -36,27 +25,29 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="50dp" />
 
-    <Button
-        android:text="Quiz 30 domande"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/startButton30"
-        android:background="@color/cyan500"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_marginBottom="77dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_above="@+id/quiz_svolti"
-        android:layout_alignStart="@+id/startButton20" />
 
     <Button
-        android:text="Profilo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:text="Quiz 30 domande"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:id="@+id/startButton30"
+        android:background="@drawable/round_button"
+        android:textColor="@color/white"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_marginBottom="73dp"
+        android:layout_above="@+id/quiz_svolti"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Quiz 10 domande"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:id="@+id/startButton20"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:background="@drawable/round_button"
+        android:textColor="@color/white"
+        android:layout_marginTop="59dp"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/startButton20"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="32dp"
-        android:id="@+id/button" />
+        android:layout_alignStart="@+id/startButton30" />
 
 </RelativeLayout>

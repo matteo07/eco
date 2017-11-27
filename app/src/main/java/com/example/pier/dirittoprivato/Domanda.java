@@ -15,7 +15,6 @@ public class Domanda {
     private String rx_3;
     private String rx_4;
     private int correct;
-    private int selected;
     private int capitolo;
 
     public Domanda(){}  //pier
@@ -32,6 +31,21 @@ public class Domanda {
 
     public String getDomanda() {
         return domanda;
+    }
+
+    public String getRispostaData(int i) {
+        switch (i) {
+            case (1):
+                return "\n" + getRx_1().toUpperCase();
+            case (2):
+                return "\n" + getRx_2().toUpperCase();
+            case (3):
+                return "\n" + getRx_3().toUpperCase();
+            case (4):
+                return "\n" + getRx_4().toUpperCase();
+            default:
+                return null;
+        }
     }
 
     public String getRx_1() {
@@ -58,9 +72,6 @@ public class Domanda {
         return correct;
     }
 
-    public int getSelected() {
-        return selected;
-    }
 
 
     // Setters
@@ -95,9 +106,7 @@ public class Domanda {
 
     //
 
-    public void setSelected(int selected) {
-        this.selected = selected;
-    }
+
 
     public ContentValues asContentValues() {
         ContentValues cv = new ContentValues();

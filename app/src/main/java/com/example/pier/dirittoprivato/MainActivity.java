@@ -30,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
         dbAdapter = DbAdapter.getInstance(this);
         dbAdapter.open();
         dbAdapter.clearDomande();
-
-
+        
 
 
         DataImport leggi = new DataImport();
@@ -44,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         dbAdapter.getErroriPerCapitolo();
 
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
         Button startButton30 = (Button) findViewById(R.id.startButton30);
         startButton30.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
                 startTest(1);
             }
         });
+
+
     }
 
     @Override
@@ -96,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this,ProfileActivity.class);
+            startActivity(intent);
             return true;
         }
 
