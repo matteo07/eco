@@ -123,7 +123,7 @@ public class TestActivity extends AppCompatActivity {
         if(isNotLastQuestion()) {
 
             Log.e(TAG,"carico domanda");
-            setLayout(domanda);
+            setLayout(domande.get(index));
         } else {
             Intent intent = new Intent(this,ResultsActivity.class);
             intent.putStringArrayListExtra("SBAGLIATE", sbagliate);
