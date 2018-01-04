@@ -1,7 +1,9 @@
 <resources>
     <dimen name="textview_height">35dp</dimen>
     <dimen name="textview_width">300dp</dimen>
-    <dimen name="font_size">10sp</dimen>
+    <dimen name="font_size">13sp</dimen>
+    <dimen name="font_size_ldpi">9sp</dimen>
+
     <dimen name="button_height">20dp</dimen>
     <dimen name="button_width">20dp</dimen>
     <dimen name="activity_horizontal_margin">3dp</dimen>

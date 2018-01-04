@@ -3,6 +3,10 @@
     package="com.example.pier.dirittoprivato">
 
 
+    <supports-screens
+    android:requiresSmallestWidthDp="120"/>
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

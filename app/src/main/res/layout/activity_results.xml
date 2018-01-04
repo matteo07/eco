@@ -27,11 +27,13 @@
         android:textAppearance="@style/TextViewStyle"/>
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="343dp"
+        android:layout_width="wrap_content"
+        android:layout_height="301dp"
         android:id="@+id/listView"
         android:layout_marginTop="20dp"
-        android:listSelector="@android:color/transparent"/>
+        android:listSelector="@android:color/transparent"
+        android:paddingBottom="32dp"
+        android:layout_weight="0.20" />
 
     <Button
         android:text="@string/scegli_quiz"

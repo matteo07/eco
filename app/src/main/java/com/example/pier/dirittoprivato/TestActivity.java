@@ -40,12 +40,12 @@ public class TestActivity extends AppCompatActivity {
         dbAdapter.open();
 
         if(quizType == 0){
-            for(int i =1; i < 11; i++) {
+            for(int i =1; i <= 10; i++) {
                 domande.addAll(dbAdapter.selectDomandeFromCap(i, "3"));
                 setLayout(domande.get(index));
             }
-        }else{
-            for(int i =1; i < 11; i++) {
+        } else {
+            for(int i =1; i <= 10; i++) {
                 domande.addAll(dbAdapter.selectDomandeFromCap(i, "1"));
                 setLayout(domande.get(index));
             }
@@ -57,14 +57,10 @@ public class TestActivity extends AppCompatActivity {
         btD = (Button) findViewById(R.id.btD);
 
         setButtonsListener();
-
     }
 
-    // metodo per gestire il tasto back della softbar
     @Override
     public void onBackPressed() {
-
-
                 AlertDialog.Builder a_builder = new AlertDialog.Builder(TestActivity.this);
                 a_builder.setMessage("Sicuro di voler terminare il Quiz ?").setCancelable(false)
                         .setPositiveButton("Termina", new DialogInterface.OnClickListener() {
@@ -82,14 +78,6 @@ public class TestActivity extends AppCompatActivity {
                 AlertDialog alert = a_builder.create();
                 alert.setTitle("");
                 alert.show();
-
-
-                /*Toast.makeText(this,"Quiz non completato",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);*/
-
-
-
     }
 
     public void setLayout(Domanda d){
@@ -110,10 +98,6 @@ public class TestActivity extends AppCompatActivity {
     }
 
     public void checkAnswer(int i){
-
-        Log.e(TAG,String.valueOf(index));
-
-
         Domanda domanda = domande.get(index);
         if(isWrongAnswer(i)){
             sbagliate.add(domanda.getDomanda().concat(" ").concat(domanda.getRispostaData(i)));
@@ -144,7 +128,6 @@ public class TestActivity extends AppCompatActivity {
 
 
     public void setButtonsListener() {
-
         btA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

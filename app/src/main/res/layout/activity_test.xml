@@ -11,51 +11,6 @@
     tools:context="com.example.pier.dirittoprivato.TestActivity">
 
 
-    <Button
-        android:text="D"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btD"
-        android:layout_alignBaseline="@+id/btC"
-        android:layout_alignBottom="@+id/btC"
-        android:layout_toEndOf="@+id/btC"
-        android:backgroundTint="@color/teal100"/>
-
-    <Button
-        android:text="B"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btB"
-        android:layout_marginEnd="58dp"
-        android:layout_alignBaseline="@+id/btA"
-        android:layout_alignBottom="@+id/btA"
-        android:layout_alignEnd="@+id/rx4"
-        android:backgroundTint="@color/teal100"/>
-
-    <Button
-        android:text="C"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btC"
-        android:layout_marginBottom="35dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/btB"
-        android:backgroundTint="@color/teal100"
-        />
-
-    <Button
-        android:text="A"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btA"
-        android:layout_above="@+id/btC"
-        android:layout_alignStart="@+id/btC"
-        android:backgroundTint="@color/teal100"/>
-
-
-
-
-
     <TextView
         android:text="domanda"
         android:layout_width="@dimen/textview_width"
@@ -67,33 +22,6 @@
         android:layout_height="75dp" />
 
     <TextView
-        android:text="B) R2"
-        android:layout_marginTop="8dp"
-        android:layout_width="@dimen/textview_width"
-        android:id="@+id/rx2"
-        android:layout_height="85dp"
-        android:layout_below="@+id/rx1"
-        android:layout_alignStart="@+id/rx1" />
-
-    <TextView
-        android:text="D) R4"
-        android:layout_marginTop="10dp"
-        android:layout_width="@dimen/textview_width"
-        android:id="@+id/rx4"
-        android:layout_height="75dp"
-        android:layout_below="@+id/rx3"
-        android:layout_alignStart="@+id/rx3" />
-
-    <TextView
-        android:text="C) R3"
-        android:layout_marginTop="11dp"
-        android:layout_width="@dimen/textview_width"
-        android:id="@+id/rx3"
-        android:layout_height="85dp"
-        android:layout_below="@+id/rx2"
-        android:layout_alignStart="@+id/rx2" />
-
-    <TextView
         android:textSize="@dimen/font_size"
         android:text="A) R1"
         android:layout_width="@dimen/textview_width"
@@ -102,5 +30,86 @@
         android:layout_height="85dp"
         android:layout_below="@+id/Domanda"
         android:layout_alignStart="@+id/Domanda" />
+
+
+    <TextView
+        android:textSize="@dimen/font_size"
+        android:text="B) R2"
+        android:layout_marginTop="8dp"
+        android:layout_width="@dimen/textview_width"
+        android:id="@+id/rx2"
+        android:layout_below="@+id/rx1"
+        android:layout_alignStart="@+id/rx1"
+        android:layout_height="95dp" />
+
+    <TextView
+        android:textSize="@dimen/font_size"
+        android:text="D) R4"
+        android:layout_marginTop="10dp"
+        android:layout_width="@dimen/textview_width"
+        android:id="@+id/rx4"
+        android:layout_below="@+id/rx3"
+        android:layout_alignStart="@+id/rx3"
+        android:layout_height="70dp" />
+
+    <Button
+        android:text="A"
+        android:background="@drawable/round_button"
+        android:textColor="@color/white"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btA"
+        android:backgroundTint="@color/cyan500"
+        android:layout_alignBaseline="@+id/btC"
+        android:layout_alignBottom="@+id/btC"
+        android:layout_alignStart="@+id/rx4" />
+
+    <Button
+        android:text="D"
+        android:background="@drawable/round_button"
+        android:textColor="@color/white"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btD"
+        android:backgroundTint="@color/cyan500"
+        android:layout_alignBaseline="@+id/btC"
+        android:layout_alignBottom="@+id/btC"
+        android:layout_alignEnd="@+id/rx4" />
+
+    <TextView
+        android:textSize="@dimen/font_size"
+        android:text="C) R3"
+        android:layout_marginTop="10dp"
+        android:layout_width="@dimen/textview_width"
+        android:id="@+id/rx3"
+        android:layout_height="100dp"
+        android:layout_below="@+id/rx2"
+        android:layout_alignStart="@+id/rx2" />
+
+    <Button
+        android:text="B"
+        android:background="@drawable/round_button"
+        android:textColor="@color/white"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btB"
+        android:backgroundTint="@color/cyan500"
+        android:layout_marginEnd="36dp"
+        android:layout_alignBaseline="@+id/btC"
+        android:layout_alignBottom="@+id/btC"
+        android:layout_toStartOf="@+id/btC" />
+
+    <Button
+        android:text="C"
+        android:background="@drawable/round_button"
+        android:textColor="@color/white"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btC"
+        android:backgroundTint="@color/cyan500"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="31dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/btD" />
 
 </RelativeLayout>

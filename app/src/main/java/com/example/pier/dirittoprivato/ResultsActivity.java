@@ -11,12 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class ResultsActivity extends AppCompatActivity {
-
-    private final String[] CAPITOLI = {"Stato e Costituzione","Lo Stato e le sue forme","Le fonti del diritto","La Costituzione e le leggi Costituzionali","La legge ordinaria statale","Gli atti con valore o forza di legge","La legge ordinaria e statuaria","L’adattamento al diritto interanzionale e le fonti comunitarie","Il Parlamento","Il Governo"};
     private final int ActivityRequestCode = 2;
 
     @Override
@@ -39,7 +36,6 @@ public class ResultsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ResultsActivity.this,MainActivity.class);
                 startActivity(intent);
-
             }
         });
     }
@@ -56,7 +52,6 @@ public class ResultsActivity extends AppCompatActivity {
 
 
     private void incrementDoneQuiz(){
-
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
                 getString(R.string.storico),
                 Context.MODE_PRIVATE);

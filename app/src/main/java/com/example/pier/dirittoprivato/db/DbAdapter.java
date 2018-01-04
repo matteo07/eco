@@ -10,7 +10,11 @@ import android.util.Log;
 
 import com.example.pier.dirittoprivato.Domanda;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Created by pier on 22/09/17.
@@ -44,11 +48,8 @@ public class DbAdapter {
         }
         return this;
     }
-    public void close() {
-        db.close();
-    }
 
-    public void insertDomanda(Domanda domanda) {
+    private void insertDomanda(Domanda domanda, SQLiteDatabase db) {
         db.insert(DbContract.DomandaItem.TABLE_NAME,null, domanda.asContentValues());
     }
 
@@ -67,7 +68,15 @@ public class DbAdapter {
         return result;
     }
 
-    public ArrayList<String> getErroriPerCapitolo () {
+    public void incrementError(int capitolo){
+        Log.d("Database","Aggiornato numero errori in capitolo " + capitolo);
+        ContentValues cv = new ContentValues();
+        cv.put(DbContract.ErroriItem.COLUMN_NAME_CAPITOLO, capitolo);
+        cv.put(DbContract.ErroriItem.COLUMN_NAME_ERRORI,getErroriInCapitolo(capitolo +"") + 1);
+        db.update(DbContract.ErroriItem.TABLE_NAME,cv,DbContract.ErroriItem.COLUMN_NAME_CAPITOLO + "=" + capitolo, null);
+    }
+
+    public ArrayList<String> getCapitoliOrderedByErrori() {
         ArrayList<String> result = new ArrayList<String>();
 
         String order = DbContract.ErroriItem.COLUMN_NAME_ERRORI + " desc";
@@ -76,25 +85,53 @@ public class DbAdapter {
         cursor.moveToFirst();
 
         while(!cursor.isAfterLast()){
-            result.add("" + cursor.getInt(0));
-            Log.d("ERRORI 1","" + cursor.getInt(0));
-            Log.d("ERRORI 2","" + cursor.getInt(1));
+            result.add("" + cursor.getInt(1));
             cursor.moveToNext();
         }
         return result;
-
     }
 
-    public void incrementError(int capitolo){
-        Log.d("Database","Aggiornato numero errori in capitolo " + capitolo);
-        ContentValues cv = new ContentValues();
-        cv.put(DbContract.ErroriItem.COLUMN_NAME_CAPITOLO, capitolo);
-        cv.put(DbContract.ErroriItem.COLUMN_NAME_ERRORI,2);
-        db.update(DbContract.ErroriItem.TABLE_NAME,cv,DbContract.ErroriItem.COLUMN_NAME_CAPITOLO + "=" + capitolo, null);
+    public int getErroriInCapitolo(String capitolo) {
+        int result = 0;
+
+        Cursor cursor = db.query(DbContract.ErroriItem.TABLE_NAME, null, DbContract.ErroriItem.COLUMN_NAME_CAPITOLO + "=" + capitolo, null, null, null, null, null );
+        cursor.moveToFirst();
+
+        while(!cursor.isAfterLast()){
+            result = cursor.getInt(0);
+            cursor.moveToNext();
+        }
+
+        return result;
     }
 
-   public void clearDomande() {
-        Log.v("Database","Rimosse domande");
-        db.execSQL("delete from " + DbContract.DomandaItem.TABLE_NAME);
+    public void importCSV(Context context, SQLiteDatabase db) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open("raw/ar")));
+
+        String line = null;
+        Scanner scanner = null;
+        int index = 0;
+
+        while((line = reader.readLine()) != null){
+            line = subString(line);
+
+            String[] splitted = line.split("\\|");
+
+            Log.d("Insert DB" , splitted[0] + "  !!  " + index);
+
+            Domanda domanda = new Domanda(splitted[0], splitted[1], splitted[2], splitted[3],
+                    splitted[4], Integer.parseInt(splitted[5]), Integer.parseInt(splitted[6]));
+
+            insertDomanda(domanda, db);
+        }
+        reader.close();
+    }
+
+    public String subString(String s){
+        StringBuilder sb = new StringBuilder();
+        for(char c : s.toCharArray()) {
+            sb.append(--c);
+        }
+        return sb.toString();
     }
 }

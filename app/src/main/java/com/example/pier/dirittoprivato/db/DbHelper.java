@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.io.IOException;
+
 /**
  * Created by pier on 22/09/17.
  */
@@ -15,9 +17,12 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String LOG_TAG = "DBOpenHelper";
 
     private static DbHelper sInstance;
+    private DbAdapter dbAdapter;
+    Context context;
 
     public DbHelper(Context context) {
         super(context, DbContract.DATABASE_NAME, null, DbContract.DATABASE_VERSION);
+        this.context = context;
     }
 
     public static synchronized DbHelper getInstance(Context context) {
@@ -26,7 +31,6 @@ public class DbHelper extends SQLiteOpenHelper {
         return sInstance;
     }
 
-    //SQL-statement per la creazione della tabella del database.
     public static final String SQL_CREATE_TABLE_DOMANDA = "create table " //
             + DbContract.DomandaItem.TABLE_NAME + " (" //
             + DbContract.DomandaItem.COLUMN_NAME_DOMANDA + " text not null, " //
@@ -37,6 +41,7 @@ public class DbHelper extends SQLiteOpenHelper {
             + DbContract.DomandaItem.COLUMN_NAME_CORRETTA + " int not null, " //
             + DbContract.DomandaItem.COLUMN_NAME_CAPITOLO + " int not null " //
             + ");";
+
     public static final String SQL_CREATE_TABLE_ERRORI = "create table "
             + DbContract.ErroriItem.TABLE_NAME + " ("
             + DbContract.ErroriItem.COLUMN_NAME_ERRORI + " int not null, " //
@@ -44,11 +49,18 @@ public class DbHelper extends SQLiteOpenHelper {
             + ");";
 
     public void initialize(SQLiteDatabase db){
-        //db.execSQL("drop table " + DbContract.DomandaItem.TABLE_NAME);
-        //db.execSQL("drop table " + DbContract.ErroriItem.TABLE_NAME);
         db.execSQL(SQL_CREATE_TABLE_DOMANDA);
         db.execSQL(SQL_CREATE_TABLE_ERRORI);
         initializeErrors(db);
+
+        dbAdapter = DbAdapter.getInstance(context);
+
+        try {
+            dbAdapter.importCSV(context, db);
+            Log.d("IMPORT CSV", "ENDED");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initializeErrors(SQLiteDatabase db) {
@@ -59,7 +71,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private void insertCap(int i, SQLiteDatabase db) {
         String insertQuery = "insert into " + DbContract.ErroriItem.TABLE_NAME
-                + " values ( " + i + ", 0 )";
+                + " values (0 ," + i + " )";
         db.execSQL(insertQuery);
     }
 
@@ -76,6 +88,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("drop table " + DbContract.DomandaItem.TABLE_NAME);
+        db.execSQL("drop table " + DbContract.ErroriItem.TABLE_NAME);
         initialize(db);
         Log.d("Database","Upgraded correctly");
     }

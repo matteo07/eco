@@ -5,44 +5,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.pier.dirittoprivato.db.DataImport;
-import com.example.pier.dirittoprivato.db.DbAdapter;
-
-import java.io.IOException;
-
 public class MainActivity extends AppCompatActivity {
     private final int ActivityRequestCode = 1;
-
-    DbAdapter dbAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        dbAdapter = DbAdapter.getInstance(this);
-        dbAdapter.open();
-        dbAdapter.clearDomande();
-        
-
-
-        DataImport leggi = new DataImport();
-        try {
-            leggi.importCSV(dbAdapter, this);
-            Log.d("IMPORT CSV", "ENDED");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        dbAdapter.getErroriPerCapitolo();
-
 
         Button startButton30 = (Button) findViewById(R.id.startButton30);
         startButton30.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button startButton20 = (Button)findViewById(R.id.startButton20);
+        Button startButton20 = (Button) findViewById(R.id.startButton20);
         startButton20.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,9 +35,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
-
     @Override
     protected void onStart(){
         super.onStart();
@@ -94,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.menu) {
             Intent intent = new Intent(this,ProfileActivity.class);
             startActivity(intent);
             return true;
@@ -103,4 +76,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void startProfileActivity(View view) {
+        Intent intent = new Intent(this,ProfileActivity.class);
+        startActivity(intent);
+    }
 }
