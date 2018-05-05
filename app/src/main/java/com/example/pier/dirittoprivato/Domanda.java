@@ -15,7 +15,7 @@ public class Domanda {
     private String rx_3;
     private String rx_4;
     private int correct;
-    private int capitolo;
+    private int capitolo ;
 
     public Domanda(){}  //pier
 
